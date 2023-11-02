@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import MovieList from './components/MovieList';
 import Filter from './components/Filter';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
+import Info from './components/Info';
+
 
 
 const App = () => {
@@ -62,11 +65,25 @@ const App = () => {
   return (
     <div className="app">
       <h1>Movie App</h1>
+      <Router>
       <Filter handleFilterChange={handleFilterChange} />
-      <MovieList movies={filteredMovies} />
+        <Routes>
+          <Route   path='/' element={
+            <MovieList movies={filteredMovies} />
+          }    />
+
+      
+      <Route   path='/Info/:title' element={
+         <Info movies={filteredMovies} />
+      }  />
+      
+      
+      </Routes>
       <button onClick={() => addMovie({ title: 'New Movie', description: 'Description for New Movie', posterURL: 'url-to-poster', rating: 4.0 })}>
         Add New Movie
       </button>
+      </Router>
+
     </div>
   );
 };
